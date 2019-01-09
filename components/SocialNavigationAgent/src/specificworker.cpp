@@ -97,8 +97,8 @@ bool SpecificWorker::setParams(RoboCompCommonBehavior::ParameterList paramsL)
 		rDebug2(("Leaving Structural Change"));
 	}		
 	catch(...)
-	{	rDebug2(("The executive is probably not running, waiting for first AGM model publication...")); }
-	
+	{	rDebug2(("SetParams ---- The executive is probably not running, waiting for first AGM model publication...")); }
+
 	// releasing pathfinder
 	//thread_pathfinder = std::thread(&robocomp::pathfinder::PathFinder::run, &pathfinder);
 	//rDebug2(("Pathfinder up and running"));
@@ -135,33 +135,33 @@ void SpecificWorker::compute() {
 		first = false;
 	}
 
-	// PROVISIONAL read robot position from proxy
-	try {
-		omnirobot_proxy->getBaseState(bState);
-		innerModel->updateTransformValues("robot", bState.x, 0, bState.z, 0, bState.alpha, 0);
-		//	qDebug() << "SpecificWorker::compute" << bState.x << bState.z << bState.alpha;
-	}
-	catch (const Ice::Exception &ex) {
-		printf("The executive is probably not running, waiting for first AGM model publication...");
-		std::cout << ex << std::endl;
-	}
+//	// PROVISIONAL read robot position from proxy
+//	try {
+//
+//		omnirobot_proxy->getBaseState(bState);
+//		innerModel->updateTransformValues("robot", bState.x, 0, bState.z, 0, bState.alpha, 0);
+//		//	qDebug() << "SpecificWorker::compute" << bState.x << bState.z << bState.alpha;
+//	}
+//	catch (const Ice::Exception &ex) {
+//		printf("Reading robot position-----The executive is probably not running, waiting for first AGM model publication...");
+//		std::cout << ex << std::endl;
+//	}
 
-	pathfinder.run();
-
+	pathfinder.run(); //projector is comentated because the social navigation cant acceded to the laser if the astraRGBD is working
 	//update viewer
-	QVec robotpos = innerModel->transformS6D("world", robotname);
-	viewer->ts_updateTransformValues(QString::fromStdString(robotname), robotpos);
+//	QVec robotpos = innerModel->transformS6D("world", robotname);
+//	viewer->ts_updateTransformValues(QString::fromStdString(robotname), robotpos);
 	viewer->run();
 
 
 // 	qDebug()<<"Update actionEx";
 // 	aE.Update(action,params);
 // 	
-	socialrules.checkRobotmov();
 
-	if (changepos) {
-		socialrules.checkMovement();
-		changepos = false;
+    if (changepos) {
+        socialrules.checkMovement();
+//        socialrules.checkRobotmov();
+        changepos = false;
 	}
 
 	if (!socialrules.pSymbolId.empty()) {
@@ -437,6 +437,7 @@ void SpecificWorker::edgesUpdated(const RoboCompAGMWorldModel::EdgeSequence &mod
 {
 // 	qDebug()<<"edgesUpdated";
 	changepos=true;
+
 	QMutexLocker lockIM(mutex);
 	for (auto modification : modifications)
 	{
@@ -475,7 +476,7 @@ void SpecificWorker::edgesUpdated(const RoboCompAGMWorldModel::EdgeSequence &mod
 void SpecificWorker::edgeUpdated(const RoboCompAGMWorldModel::Edge& modification)
 {
  	qDebug() << "edgeUpdated";
-	changepos=true;
+	changepos = true;
 	QMutexLocker lockIM(mutex);
 	AGMModelConverter::includeIceModificationInInternalModel(modification, worldModel);
 	AGMModelEdge edge;

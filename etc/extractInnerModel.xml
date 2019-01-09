@@ -61,6 +61,9 @@
 			<transform id="board" tx="2000" ty="1200" tz="4400"  rx="0" ry="3.141520023" rz="0">
 				<mesh id="board_mesh" file="/home/robocomp/robocomp/components/robocomp-araceli/models/board.3DS" scale="7,7,7" tx="0" ty="0" tz="0" rx="1.570000052" ry="0" rz="3.141520023" collide="1" />
 			</transform>
+			<transform id="camera_astra" tx="0" ty="925" tz="0"  rx="0" ry="0" rz="0">
+				<mesh id="astraRGBD_mesh" file="/home/robocomp/robocomp/files/osgModels/basics/cube2.3ds" scale="200,200,200" tx="0" ty="0" tz="0" rx="0" ry="0" rz="0" collide="1" />
+			</transform>
 		</transform>
 	</transform>
 </innermodel>

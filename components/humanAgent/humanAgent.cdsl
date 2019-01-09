@@ -1,8 +1,10 @@
+import "HumanTracker.idsl";
+
 Component humanAgent
 {
 	Communications
 	{
-
+		requires HumanTracker;
 	};
 	
 	language Cpp;

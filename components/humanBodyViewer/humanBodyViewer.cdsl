@@ -1,0 +1,10 @@
+
+Component humanBodyViewer
+{
+	Communications
+	{
+	};
+	
+	language Cpp;
+};
+

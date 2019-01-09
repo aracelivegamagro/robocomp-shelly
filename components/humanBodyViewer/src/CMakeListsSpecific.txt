@@ -13,6 +13,7 @@ SET ( HEADERS
   bodyVisualizer.h
 )
 
+INCLUDE($ENV{ROBOCOMP}/cmake/modules/astra.cmake)
 INCLUDE ($ENV{ROBOCOMP}/cmake/modules/FindSFML.cmake)
 ADD_DEFINITIONS( -std=c++11 )
 

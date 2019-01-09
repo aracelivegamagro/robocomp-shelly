@@ -28,6 +28,7 @@ QObject()
 #endif
 
 {
+	humantracker_proxy = (*(HumanTrackerPrx*)mprx["HumanTrackerProxy"]);
 	agmexecutive_proxy = (*(AGMExecutivePrx*)mprx["AGMExecutiveProxy"]);
 
 	mutex = new QMutex(QMutex::Recursive);

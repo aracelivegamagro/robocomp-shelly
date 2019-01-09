@@ -33,9 +33,6 @@
 #ifdef USE_QTGUI
 	#include <osgviewer/osgview.h>
 	#include <innermodel/innermodelviewer.h>
-    #include <SFML/Graphics.hpp>
-    #include <astra/astra.hpp>
-	#include <bodyVisualizer.h>
 
 #endif
 
@@ -43,17 +40,37 @@ class SpecificWorker : public GenericWorker
 {
 Q_OBJECT
 
-    sf::RenderWindow window;
-    astra::StreamSet sensor;
-    astra::StreamReader *reader;
-    BodyVisualizer *listener;
-	bool first= true;
-
-
 public:
-	SpecificWorker(MapPrx& mprx);
+    struct Pose3D
+    {
+        float x;
+        float z;
+        float ry;
+    };
+
+    typedef map <int,Pose3D> list_humans;
+    int idhuman;
+    list_humans humans_in_world;
+    int mesh = 1;
+
+    bool first = true;
+    bool movement_correct = false;
+    bool rotation_correct = false;
+
+
+    SpecificWorker(MapPrx& mprx);
 	~SpecificWorker();
 	bool setParams(RoboCompCommonBehavior::ParameterList params);
+	void includeInAGM(int id,Pose3D pose);
+	void movePersonInAGM(int id, Pose3D pose);
+    void getDataFromAstra();
+
+//	bool removeFromAGM(int id);
+
+
+
+    bool getPoseRot (jointListType list, Pose3D &personpose);
+
 
 	bool reloadConfigAgent();
 	bool activateAgent(const ParameterMap &prs);
@@ -70,10 +87,13 @@ public:
 	void symbolsUpdated(const RoboCompAGMWorldModel::NodeSequence &modifications);
 
 
+
 public slots:
 	void compute();
 
 private:
+
+    QMutex *mux;
 	InnerModel *innerModel;
 
 #ifdef USE_QTGUI
@@ -86,7 +106,7 @@ private:
 	bool active;
 	void regenerateInnerModelViewer();
 	bool setParametersAndPossibleActivation(const ParameterMap &prs, bool &reactivated);
-	void sendModificationProposal(AGMModel::SPtr &worldModel, AGMModel::SPtr &newModel);
+	bool sendModificationProposal(AGMModel::SPtr &worldModel, AGMModel::SPtr &newModel);
 
 };
 

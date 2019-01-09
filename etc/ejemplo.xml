@@ -33,11 +33,11 @@
 			</transform>	
 			
 
-			
-			
-			<!--transform id="caja1" tx="0" tz="2000" ty="950" >
-				<plane id="cajaMesh1" nx="1" nz="-1000" size="1100,1100,1100"  texture="#880000" />
-			</transform-->
+			<transform id="camera_astra" tx="0" tz="0" ty="925" ry="0" > 
+				<mesh id="astraRGBD_mesh" file="/home/robocomp/robocomp/files/osgModels/basics/cube2.3ds" 
+				scale="200,200,200"  collide="1" />
+			</transform>
+
 
 			<!-- TABLE D MESA REDONDA DEL COMEDOR>
 			<transform id="tableD" tx="1500" tz="1767" ty="730" >
@@ -46,7 +46,7 @@
 				<transform id="rwreewreet" ty="-365" >
 					<mesh id="tableD_mesh2" file="/home/robocomp/robocomp/files/osgModels/basics/cylinder.3ds" scale="600,600,360" 						rx="1.570799947" collide="1"/>
 				</transform>
-			</transform-->
+			</transform>-->
 
 		</transform>
 		

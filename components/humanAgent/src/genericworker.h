@@ -28,6 +28,7 @@
 
 #include <CommonBehavior.h>
 
+#include <HumanTracker.h>
 #include <agm.h>
 
 #define CHECK_PERIOD 5000
@@ -37,6 +38,7 @@ typedef map <string,::IceProxy::Ice::Object*> MapPrx;
 
 using namespace std;
 
+using namespace RoboCompHumanTracker;
 using namespace RoboCompPlanning;
 using namespace RoboCompAGMExecutive;
 using namespace RoboCompAGMCommonBehavior;
@@ -72,6 +74,7 @@ public:
 	bool isActive() { return active; }
 
 
+	HumanTrackerPrx humantracker_proxy;
 	AGMExecutivePrx agmexecutive_proxy;
 
 	virtual bool reloadConfigAgent() = 0;

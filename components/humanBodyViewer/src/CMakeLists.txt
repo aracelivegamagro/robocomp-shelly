@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.11)
-PROJECT( humanAgent )
+PROJECT( humanBodyViewer )
 
 
 IF ( "$ENV{ROBOCOMP}" STREQUAL "")
@@ -16,24 +16,23 @@ INCLUDE ( CMakeListsSpecific.txt)
 
 # Sources set
 SET ( SOURCES
-  ${SOURCES}
-  $ENV{ROBOCOMP}/classes/rapplication/rapplication.cpp
-  $ENV{ROBOCOMP}/classes/sigwatch/sigwatch.cpp
-  $ENV{ROBOCOMP}/classes/qlog/qlog.cpp
-  main.cpp
-  genericmonitor.cpp
-  specificmonitor.cpp
-  commonbehaviorI.cpp
-  genericworker.cpp
-  specificworker.cpp
-  agmcommonbehaviorI.cpp
-  agmexecutivetopicI.cpp
+        ${SOURCES}
+        $ENV{ROBOCOMP}/classes/rapplication/rapplication.cpp
+        $ENV{ROBOCOMP}/classes/sigwatch/sigwatch.cpp
+        $ENV{ROBOCOMP}/classes/qlog/qlog.cpp
+        main.cpp
+        genericmonitor.cpp
+        specificmonitor.cpp
+        commonbehaviorI.cpp
+        genericworker.cpp
+        specificworker.cpp
+        bodyVisualizer.cpp
         )
 
 
 #ROBOCOMP
 ROBOCOMP_INITIALIZE( $ENV{ROBOCOMP}/ )
-ROBOCOMP_WRAP_ICE( CommonBehavior HumanTracker  AGMExecutive AGMWorldModel Planning AGMCommonBehavior )
+ROBOCOMP_WRAP_ICE( CommonBehavior)
 SET (EXECUTABLE_OUTPUT_PATH ${RC_COMPONENT_DEVEL_PATH}/bin)
 
 # Qt4
@@ -47,11 +46,8 @@ SET( QT_USE_QTSTATEMACHINE TRUE )
 SET( CMAKE_AUTOMOC TRUE )
 SET( CMAKE_AUTOUIC TRUE )
 INCLUDE( ${QT_USE_FILE} )
-QT4_WRAP_UI( UI_HEADERS mainUI.ui )
 
 # Specify construction and link process
-SET(LIBS ${LIBS} -lagm)
-ADD_DEFINITIONS( -I/usr/include/libxml2/ )
-ADD_EXECUTABLE( humanAgent ${SOURCES} ${MOC_SOURCES} ${RC_SOURCES} ${UI_HEADERS} )
-TARGET_LINK_LIBRARIES( humanAgent ${QT_LIBRARIES} ${LIBS} ${STATIC_LIBS} ${SPECIFIC_LIBS} ${Ice_LIBRARIES})
-INSTALL(FILES ${EXECUTABLE_OUTPUT_PATH}/humanAgent DESTINATION ${RC_COMPONENT_INSTALL_PATH}/bin/ PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )
+ADD_EXECUTABLE( humanBodyViewer ${SOURCES} ${MOC_SOURCES} ${RC_SOURCES} ${UI_HEADERS} )
+TARGET_LINK_LIBRARIES( humanBodyViewer ${QT_LIBRARIES} ${LIBS} ${STATIC_LIBS} ${SPECIFIC_LIBS} ${SFML_LIBRARIES} -lsfml-graphics -lsfml-window -lsfml-system -lGL  ${Ice_LIBRARIES})
+INSTALL(FILES ${EXECUTABLE_OUTPUT_PATH}/humanBodyViewer DESTINATION ${RC_COMPONENT_INSTALL_PATH}/bin/ PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )

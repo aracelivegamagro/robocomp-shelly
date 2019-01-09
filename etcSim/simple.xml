@@ -18,7 +18,7 @@
   <downCommand command="killall -9 agmmission" />
   <configFile path="/home/robocomp/robocomp/components/robocomp-shelly/etcSim/mission.conf" />
   <xpos value="-11.0935151594" />
-  <ypos value="-284.933874221" />
+  <ypos value="-224.933874221" />
   <radius value="10.0" />
   <color value="#AAAAAA" />
  </node>
@@ -132,7 +132,6 @@
   <color value="#33FF33" />
  </node>
 
-
  <node alias="socialnavigG" endpoint="socialnavigationgaussian:tcp -h localhost -p 20020">
   <workingDir path="/home/robocomp/" />
   <upCommand command="rcremote localhost socialnavGauss /home/robocomp/robocomp/components/robocomp-araceli/components/socialnavigationGaussian python src/socialnavigationGaussian.py etc/config" />
@@ -143,6 +142,31 @@
   <radius value="10.0" />
   <color value="#33FF33" />
  </node>
+
+ <node alias="humanAgent" endpoint="agmcommonbehavior:tcp -h localhost -p 11217">
+  <dependence alias="executive" />
+  <dependence alias="astraRGBD" />
+  <workingDir path="/home/robocomp/" />
+  <upCommand command="rcremote localhost humanAgent /home/robocomp/robocomp/components/robocomp-araceli/components/humanAgent ./bin/humanAgent /home/robocomp/robocomp/components/robocomp-araceli/etcSim/humanAgent.conf" />
+  <downCommand command="killall -9 humanAgent" />
+  <configFile path="/home/robocomp/robocomp/components/robocomp-araceli/etcSim/humanAgent.conf" />
+  <xpos value="171.097569307" />
+  <ypos value="20.5106363282" />
+  <radius value="10.0" />
+  <color value="#33FF33" />
+ </node>
+
+ <node alias="astraRGBD" endpoint="humantracker:tcp -h localhost -p 11666"> 
+  <workingDir path="/home/robocomp/" />
+  <upCommand command="rcremote localhost astraRGBD /home/robocomp/robocomp/components/robocomp-robolab/components/astraRGBD ./bin/astraRGBD /home/robocomp/robocomp/components/robocomp-araceli/etcSim/astraRGBD.conf" />
+  <downCommand command="killall -9 astraRGBD" />
+  <configFile path="/home/robocomp/robocomp/components/robocomp-araceli/etcSim/astraRGBD.conf" />
+  <xpos value="171.097569307" />
+  <ypos value="100.5106363282" />
+  <radius value="10.0" />
+  <color value="#33FF33" />
+ </node>
+
 
  <node alias="humanFakeA" endpoint="agmcommonbehavior:tcp -h localhost -p 10210">
   <dependence alias="executive" />

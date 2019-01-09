@@ -23,7 +23,7 @@
 	<link src="1" dst="3" label="know" > </link>
 	<link src="1" dst="3" label="in" > </link>
 
-<symbol id="3000" type="object_interaction">
+	<symbol id="3000" type="object_interaction">
 		<attribute key="imType" value="transform" />
 		<attribute key="imName" value="board" />
 		<attribute key="interaction" value="10" />
@@ -31,7 +31,6 @@
 	<symbol id="3001" type="objectSt" > </symbol>
 	<symbol id="3002" type="objectSt">
 		<attribute key="imType" value="transform" />
-		<attribute key="imName" value="coffee_reachPos" />
 	</symbol>
 	<link src="3000" dst="3002" label="reachPosition" > </link>
 	<link src="3000" dst="3001" label="explored" > </link>
@@ -53,5 +52,19 @@
 		<linkAttribute key="ry" value="0" />
 		<linkAttribute key="rz" value="0" />
 	</link>
+	
+	<symbol id="32" type="camera_astra">
+	<attribute key="imType" value="transform" />
+	<attribute key="imName" value="astraRGBD" />
+	</symbol>
+	<link src="1" dst="32" label="know" > </link>
+	<link src="32" dst="3" label="in" > </link>
+	<symbol id="33" type="objectSt"> </symbol>
+	<symbol id="34" type="objectSt">
+		<attribute key="imType" value="transform" />
+		<attribute key="imName" value="astraRGBD_reachPos" />
+	</symbol>
+	
+
 
 </AGMModel>

@@ -40,9 +40,9 @@ void SocialRules::checkNewPersonInModel(AGMModel::SPtr worldModel_)
 	idselected->clear();
 	pSymbolId.clear();
 	//Check if the person is in the model
- 	for (uint i=0; i < 100; i++)
+ 	for (uint i=1; i < 300; i++)
 	{
-		std::string name = "fakeperson" + std::to_string(i+1);
+		std::string name = "person" + std::to_string(i);
 		int idx = 0;
 		while ((personSymbolId = worldModel->getIdentifierByType("person", idx++)) != -1)
 		{
@@ -623,8 +623,8 @@ bool SocialRules::checkHRI(SNGPerson p, int ind , InnerPtr &i, AGMModel::SPtr w)
 	worldModel = w;
 	bool changes = false;
 	/////////////////////Checking if the person is close and looking at the robot
-	std::string type = "person" + std::to_string(ind);
-	std::string name = "fakeperson" + std::to_string(ind);
+	std::string type = "person";
+	std::string name = "person" + std::to_string(ind);
 		
 	qDebug()<<QString::fromStdString(type)<<"-"<<QString::fromStdString(name);
 
